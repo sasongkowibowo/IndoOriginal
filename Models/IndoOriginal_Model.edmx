@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IndoOriginal_Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="IndoOriginal_ModelStoreContainer">
+    <EntitySet Name="Branches" EntityType="IndoOriginal_Model.Store.Branches" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Employees" EntityType="IndoOriginal_Model.Store.Employees" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BranchTables" EntityType="IndoOriginal_Model.Store.BranchTables" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BookingRequests" EntityType="IndoOriginal_Model.Store.BookingRequests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BookingSchedules" EntityType="IndoOriginal_Model.Store.BookingSchedules" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Menus" EntityType="IndoOriginal_Model.Store.Menus" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="BranchEmployee" Association="IndoOriginal_Model.Store.BranchEmployee">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="BranchBranchTable" Association="IndoOriginal_Model.Store.BranchBranchTable">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="BranchTable" EntitySet="BranchTables" />
+    </AssociationSet>
+    <AssociationSet Name="BookingRequestBookingSchedule" Association="IndoOriginal_Model.Store.BookingRequestBookingSchedule">
+      <End Role="BookingRequest" EntitySet="BookingRequests" />
+      <End Role="BookingSchedule" EntitySet="BookingSchedules" />
+    </AssociationSet>
+    <AssociationSet Name="BranchTableBookingSchedule" Association="IndoOriginal_Model.Store.BranchTableBookingSchedule">
+      <End Role="BranchTable" EntitySet="BranchTables" />
+      <End Role="BookingSchedule" EntitySet="BookingSchedules" />
+    </AssociationSet>
+    <AssociationSet Name="BranchBookingRequest" Association="IndoOriginal_Model.Store.BranchBookingRequest">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="BookingRequest" EntitySet="BookingRequests" />
+    </AssociationSet>
+    <AssociationSet Name="BranchBookingSchedule" Association="IndoOriginal_Model.Store.BranchBookingSchedule">
+      <End Role="Branch" EntitySet="Branches" />
+      <End Role="BookingSchedule" EntitySet="BookingSchedules" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Branches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="State" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="int" Nullable="false" />
+    <Property Name="Coordinate" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="int" Nullable="false" />
+    <Property Name="UserType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+    <Property Name="LoginId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BranchTables">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TableNo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Capacity" Type="int" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BookingRequests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Time" Type="int" Nullable="false" />
+    <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+    <Property Name="Note" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Persons" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WaitingList" Type="int" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+    <Property Name="BookingSchedule_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BookingSchedules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Time" Type="int" Nullable="false" />
+    <Property Name="BranchTableId" Type="int" Nullable="false" />
+    <Property Name="BranchId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Menus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Calories" Type="int" Nullable="false" />
+    <Property Name="Picture" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="BranchEmployee">
+    <End Role="Branch" Type="IndoOriginal_Model.Store.Branches" Multiplicity="1" />
+    <End Role="Employee" Type="IndoOriginal_Model.Store.Employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BranchBranchTable">
+    <End Role="Branch" Type="IndoOriginal_Model.Store.Branches" Multiplicity="1" />
+    <End Role="BranchTable" Type="IndoOriginal_Model.Store.BranchTables" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BranchTable">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookingRequestBookingSchedule">
+    <End Role="BookingRequest" Type="IndoOriginal_Model.Store.BookingRequests" Multiplicity="*" />
+    <End Role="BookingSchedule" Type="IndoOriginal_Model.Store.BookingSchedules" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="BookingSchedule">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingRequest">
+        <PropertyRef Name="BookingSchedule_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BranchTableBookingSchedule">
+    <End Role="BranchTable" Type="IndoOriginal_Model.Store.BranchTables" Multiplicity="1" />
+    <End Role="BookingSchedule" Type="IndoOriginal_Model.Store.BookingSchedules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BranchTable">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingSchedule">
+        <PropertyRef Name="BranchTableId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BranchBookingRequest">
+    <End Role="Branch" Type="IndoOriginal_Model.Store.Branches" Multiplicity="1" />
+    <End Role="BookingRequest" Type="IndoOriginal_Model.Store.BookingRequests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingRequest">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BranchBookingSchedule">
+    <End Role="Branch" Type="IndoOriginal_Model.Store.Branches" Multiplicity="1" />
+    <End Role="BookingSchedule" Type="IndoOriginal_Model.Store.BookingSchedules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Branch">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingSchedule">
+        <PropertyRef Name="BranchId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="IndoOriginal_Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="IndoOriginal_ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Branches" EntityType="IndoOriginal_Model.Branch" />
+          <EntitySet Name="Employees" EntityType="IndoOriginal_Model.Employee" />
+          <AssociationSet Name="BranchEmployee" Association="IndoOriginal_Model.BranchEmployee">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <EntitySet Name="BranchTables" EntityType="IndoOriginal_Model.BranchTable" />
+          <AssociationSet Name="BranchBranchTable" Association="IndoOriginal_Model.BranchBranchTable">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="BranchTable" EntitySet="BranchTables" />
+          </AssociationSet>
+          <EntitySet Name="BookingRequests" EntityType="IndoOriginal_Model.BookingRequest" />
+          <EntitySet Name="BookingSchedules" EntityType="IndoOriginal_Model.BookingSchedule" />
+          <AssociationSet Name="BookingRequestBookingSchedule" Association="IndoOriginal_Model.BookingRequestBookingSchedule">
+            <End Role="BookingRequest" EntitySet="BookingRequests" />
+            <End Role="BookingSchedule" EntitySet="BookingSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="BranchTableBookingSchedule" Association="IndoOriginal_Model.BranchTableBookingSchedule">
+            <End Role="BranchTable" EntitySet="BranchTables" />
+            <End Role="BookingSchedule" EntitySet="BookingSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="BranchBookingRequest" Association="IndoOriginal_Model.BranchBookingRequest">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="BookingRequest" EntitySet="BookingRequests" />
+          </AssociationSet>
+          <AssociationSet Name="BranchBookingSchedule" Association="IndoOriginal_Model.BranchBookingSchedule">
+            <End Role="Branch" EntitySet="Branches" />
+            <End Role="BookingSchedule" EntitySet="BookingSchedules" />
+          </AssociationSet>
+          <EntitySet Name="Menus" EntityType="IndoOriginal_Model.Menu" />
+        </EntityContainer>
+        <EntityType Name="Branch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="State" Type="String" Nullable="false" />
+          <Property Name="Telephone" Type="Int32" Nullable="false" />
+          <Property Name="Coordinate" Type="String" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="IndoOriginal_Model.BranchEmployee" FromRole="Branch" ToRole="Employee" />
+          <NavigationProperty Name="BranchTables" Relationship="IndoOriginal_Model.BranchBranchTable" FromRole="Branch" ToRole="BranchTable" />
+          <NavigationProperty Name="BookingRequests" Relationship="IndoOriginal_Model.BranchBookingRequest" FromRole="Branch" ToRole="BookingRequest" />
+          <NavigationProperty Name="BookingSchedules" Relationship="IndoOriginal_Model.BranchBookingSchedule" FromRole="Branch" ToRole="BookingSchedule" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" Nullable="false" />
+          <Property Name="Telephone" Type="Int32" Nullable="false" />
+          <Property Name="UserType" Type="String" Nullable="false" />
+          <NavigationProperty Name="Branch" Relationship="IndoOriginal_Model.BranchEmployee" FromRole="Employee" ToRole="Branch" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <Property Name="LoginId" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="BranchEmployee">
+          <End Type="IndoOriginal_Model.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="IndoOriginal_Model.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BranchTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TableNo" Type="String" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Branch" Relationship="IndoOriginal_Model.BranchBranchTable" FromRole="BranchTable" ToRole="Branch" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BookingSchedules" Relationship="IndoOriginal_Model.BranchTableBookingSchedule" FromRole="BranchTable" ToRole="BookingSchedule" />
+        </EntityType>
+        <Association Name="BranchBranchTable">
+          <End Type="IndoOriginal_Model.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="IndoOriginal_Model.BranchTable" Role="BranchTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BranchTable">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BookingRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Time" Type="Int32" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" />
+          <Property Name="Note" Type="String" Nullable="false" />
+          <Property Name="Persons" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" />
+          <Property Name="Telephone" Type="String" Nullable="false" />
+          <Property Name="WaitingList" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BookingSchedule" Relationship="IndoOriginal_Model.BookingRequestBookingSchedule" FromRole="BookingRequest" ToRole="BookingSchedule" />
+          <NavigationProperty Name="Branch" Relationship="IndoOriginal_Model.BranchBookingRequest" FromRole="BookingRequest" ToRole="Branch" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookingSchedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <Property Name="Time" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BookingRequest" Relationship="IndoOriginal_Model.BookingRequestBookingSchedule" FromRole="BookingSchedule" ToRole="BookingRequest" />
+          <NavigationProperty Name="BranchTable" Relationship="IndoOriginal_Model.BranchTableBookingSchedule" FromRole="BookingSchedule" ToRole="BranchTable" />
+          <Property Name="BranchTableId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Branch" Relationship="IndoOriginal_Model.BranchBookingSchedule" FromRole="BookingSchedule" ToRole="Branch" />
+          <Property Name="BranchId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="BookingRequestBookingSchedule">
+          <End Type="IndoOriginal_Model.BookingRequest" Role="BookingRequest" Multiplicity="1" />
+          <End Type="IndoOriginal_Model.BookingSchedule" Role="BookingSchedule" Multiplicity="1" />
+        </Association>
+        <Association Name="BranchTableBookingSchedule">
+          <End Type="IndoOriginal_Model.BranchTable" Role="BranchTable" Multiplicity="1" />
+          <End Type="IndoOriginal_Model.BookingSchedule" Role="BookingSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BranchTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingSchedule">
+              <PropertyRef Name="BranchTableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BranchBookingRequest">
+          <End Type="IndoOriginal_Model.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="IndoOriginal_Model.BookingRequest" Role="BookingRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingRequest">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BranchBookingSchedule">
+          <End Type="IndoOriginal_Model.Branch" Role="Branch" Multiplicity="1" />
+          <End Type="IndoOriginal_Model.BookingSchedule" Role="BookingSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Branch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingSchedule">
+              <PropertyRef Name="BranchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Calories" Type="Int32" Nullable="false" />
+          <Property Name="Picture" Type="String" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IndoOriginal_ModelStoreContainer" CdmEntityContainer="IndoOriginal_ModelContainer">
+    <EntitySetMapping Name="Branches">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoOriginal_Model.Branch)">
+        <MappingFragment StoreEntitySet="Branches">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Coordinate" ColumnName="Coordinate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoOriginal_Model.Employee)">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BranchTables">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoOriginal_Model.BranchTable)">
+        <MappingFragment StoreEntitySet="BranchTables">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TableNo" ColumnName="TableNo" />
+          <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookingRequests">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoOriginal_Model.BookingRequest)">
+        <MappingFragment StoreEntitySet="BookingRequests">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="Persons" ColumnName="Persons" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="WaitingList" ColumnName="WaitingList" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookingSchedules">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoOriginal_Model.BookingSchedule)">
+        <MappingFragment StoreEntitySet="BookingSchedules">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="BranchTableId" ColumnName="BranchTableId" />
+          <ScalarProperty Name="BranchId" ColumnName="BranchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoOriginal_Model.Menu)">
+        <MappingFragment StoreEntitySet="Menus">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Calories" ColumnName="Calories" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BookingRequestBookingSchedule" TypeName="IndoOriginal_Model.BookingRequestBookingSchedule" StoreEntitySet="BookingRequests">
+      <EndProperty Name="BookingSchedule">
+        <ScalarProperty Name="Id" ColumnName="BookingSchedule_Id" />
+      </EndProperty>
+      <EndProperty Name="BookingRequest">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
