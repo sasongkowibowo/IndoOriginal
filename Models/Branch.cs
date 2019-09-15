@@ -21,13 +21,14 @@ namespace IndoOriginal.Models
             this.BranchTables = new HashSet<BranchTable>();
             this.BookingRequests = new HashSet<BookingRequest>();
             this.BookingSchedules = new HashSet<BookingSchedule>();
+            this.Reviews = new HashSet<Review>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string State { get; set; }
-        public int Telephone { get; set; }
+        public string Telephone { get; set; }
         public string Coordinate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -38,5 +39,7 @@ namespace IndoOriginal.Models
         public virtual ICollection<BookingRequest> BookingRequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingSchedule> BookingSchedules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

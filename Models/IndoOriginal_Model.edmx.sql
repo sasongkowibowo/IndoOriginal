@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/07/2019 16:21:26
+-- Date Created: 09/15/2019 13:59:51
 -- Generated from EDMX file: E:\STUDY\3. Semester 2 2019\FIT5032_Internet_Applications_Development\source\repos\IndoOriginal\Models\IndoOriginal_Model.edmx
 -- --------------------------------------------------
 
@@ -23,9 +23,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_BranchBranchTable]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[BranchTables] DROP CONSTRAINT [FK_BranchBranchTable];
 GO
-IF OBJECT_ID(N'[dbo].[FK_BookingRequestBookingSchedule]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[BookingRequests] DROP CONSTRAINT [FK_BookingRequestBookingSchedule];
-GO
 IF OBJECT_ID(N'[dbo].[FK_BranchTableBookingSchedule]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[BookingSchedules] DROP CONSTRAINT [FK_BranchTableBookingSchedule];
 GO
@@ -34,6 +31,15 @@ IF OBJECT_ID(N'[dbo].[FK_BranchBookingRequest]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_BranchBookingSchedule]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[BookingSchedules] DROP CONSTRAINT [FK_BranchBookingSchedule];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BranchReview]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Reviews] DROP CONSTRAINT [FK_BranchReview];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BookingRequestReview]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Reviews] DROP CONSTRAINT [FK_BookingRequestReview];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BookingRequestBookingSchedule]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BookingSchedules] DROP CONSTRAINT [FK_BookingRequestBookingSchedule];
 GO
 
 -- --------------------------------------------------
@@ -58,6 +64,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Menus]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Menus];
 GO
+IF OBJECT_ID(N'[dbo].[Reviews]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Reviews];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -69,7 +78,7 @@ CREATE TABLE [dbo].[Branches] (
     [Name] nvarchar(max)  NOT NULL,
     [Address] nvarchar(max)  NOT NULL,
     [State] nvarchar(max)  NOT NULL,
-    [Telephone] int  NOT NULL,
+    [Telephone] nvarchar(max)  NOT NULL,
     [Coordinate] nvarchar(max)  NOT NULL
 );
 GO
@@ -78,7 +87,7 @@ GO
 CREATE TABLE [dbo].[Employees] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [FullName] nvarchar(max)  NOT NULL,
-    [Telephone] int  NOT NULL,
+    [Telephone] nvarchar(max)  NOT NULL,
     [UserType] nvarchar(max)  NOT NULL,
     [BranchId] int  NOT NULL,
     [LoginId] nvarchar(max)  NOT NULL,
@@ -98,27 +107,28 @@ GO
 -- Creating table 'BookingRequests'
 CREATE TABLE [dbo].[BookingRequests] (
     [Id] int IDENTITY(1,1) NOT NULL,
+    [BranchId] int  NOT NULL,
+    [FullName] nvarchar(max)  NOT NULL,
     [Date] datetime  NOT NULL,
     [Time] int  NOT NULL,
-    [TransactionDate] datetime  NOT NULL,
-    [Note] nvarchar(max)  NOT NULL,
     [Persons] int  NOT NULL,
     [Email] nvarchar(max)  NOT NULL,
-    [FullName] nvarchar(max)  NOT NULL,
     [Telephone] nvarchar(max)  NOT NULL,
-    [WaitingList] int  NOT NULL,
-    [BranchId] int  NOT NULL,
-    [BookingSchedule_Id] int  NOT NULL
+    [Note] nvarchar(max)  NULL,
+    [WaitingList] int  NULL,
+    [TransactionDate] datetime  NOT NULL
 );
 GO
 
 -- Creating table 'BookingSchedules'
 CREATE TABLE [dbo].[BookingSchedules] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Date] nvarchar(max)  NOT NULL,
+    [Date] datetime  NOT NULL,
     [Time] int  NOT NULL,
+    [EndTime] int  NOT NULL,
     [BranchTableId] int  NOT NULL,
-    [BranchId] int  NOT NULL
+    [BranchId] int  NOT NULL,
+    [BookingRequest_Id] int  NOT NULL
 );
 GO
 
@@ -130,6 +140,20 @@ CREATE TABLE [dbo].[Menus] (
     [Description] nvarchar(max)  NOT NULL,
     [Calories] int  NOT NULL,
     [Picture] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'Reviews'
+CREATE TABLE [dbo].[Reviews] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Menu] int  NOT NULL,
+    [Place] int  NOT NULL,
+    [Service] int  NOT NULL,
+    [BookingProcess] int  NOT NULL,
+    [Comment] nvarchar(max)  NOT NULL,
+    [ReviewDate] datetime  NOT NULL,
+    [BranchId] int  NOT NULL,
+    [BookingRequestId] int  NOT NULL
 );
 GO
 
@@ -173,6 +197,12 @@ ADD CONSTRAINT [PK_Menus]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Reviews'
+ALTER TABLE [dbo].[Reviews]
+ADD CONSTRAINT [PK_Reviews]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
@@ -205,21 +235,6 @@ GO
 CREATE INDEX [IX_FK_BranchBranchTable]
 ON [dbo].[BranchTables]
     ([BranchId]);
-GO
-
--- Creating foreign key on [BookingSchedule_Id] in table 'BookingRequests'
-ALTER TABLE [dbo].[BookingRequests]
-ADD CONSTRAINT [FK_BookingRequestBookingSchedule]
-    FOREIGN KEY ([BookingSchedule_Id])
-    REFERENCES [dbo].[BookingSchedules]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_BookingRequestBookingSchedule'
-CREATE INDEX [IX_FK_BookingRequestBookingSchedule]
-ON [dbo].[BookingRequests]
-    ([BookingSchedule_Id]);
 GO
 
 -- Creating foreign key on [BranchTableId] in table 'BookingSchedules'
@@ -265,6 +280,51 @@ GO
 CREATE INDEX [IX_FK_BranchBookingSchedule]
 ON [dbo].[BookingSchedules]
     ([BranchId]);
+GO
+
+-- Creating foreign key on [BranchId] in table 'Reviews'
+ALTER TABLE [dbo].[Reviews]
+ADD CONSTRAINT [FK_BranchReview]
+    FOREIGN KEY ([BranchId])
+    REFERENCES [dbo].[Branches]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BranchReview'
+CREATE INDEX [IX_FK_BranchReview]
+ON [dbo].[Reviews]
+    ([BranchId]);
+GO
+
+-- Creating foreign key on [BookingRequestId] in table 'Reviews'
+ALTER TABLE [dbo].[Reviews]
+ADD CONSTRAINT [FK_BookingRequestReview]
+    FOREIGN KEY ([BookingRequestId])
+    REFERENCES [dbo].[BookingRequests]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BookingRequestReview'
+CREATE INDEX [IX_FK_BookingRequestReview]
+ON [dbo].[Reviews]
+    ([BookingRequestId]);
+GO
+
+-- Creating foreign key on [BookingRequest_Id] in table 'BookingSchedules'
+ALTER TABLE [dbo].[BookingSchedules]
+ADD CONSTRAINT [FK_BookingRequestBookingSchedule]
+    FOREIGN KEY ([BookingRequest_Id])
+    REFERENCES [dbo].[BookingRequests]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BookingRequestBookingSchedule'
+CREATE INDEX [IX_FK_BookingRequestBookingSchedule]
+ON [dbo].[BookingSchedules]
+    ([BookingRequest_Id]);
 GO
 
 -- --------------------------------------------------

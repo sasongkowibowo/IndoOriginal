@@ -22,3 +22,68 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* change the background color */
+.navbar-custom {
+    background-color: #210303;
+}
+
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.navbar-custom .navbar-toggle {
+    border-color: #333;
+}
+
+.navbar-custom .navbar-toggle:hover,
+.navbar-custom .navbar-toggle:focus {
+    background-color: #333;
+}
+
+.navbar-custom .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
+ul.nav a:hover {
+    color: #ffffff !important;
+    background-color: #c21515 !important;
+}
+
+ul.nav a {
+    color: #f25e5e !important;
+}
+
+#logo {
+    vertical-align: middle;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+body {
+    font-family: 'Gentium Book Basic', serif !important;
+    font-size: 20px;  
+}
+
+.jumbo-about {
+    background-image: url('images/jumbo_bg.jpeg');
+    background-size: cover;
+    text-shadow: 2px 2px 5px #353333;
+}
+
+.jumbo-menu {
+    background-color: #e0fcbf;
+    color: #210303;
+}
+
+.jumbo-booking {
+    background-color: #f1dea9;
+    color: #210303;
+}
+
+

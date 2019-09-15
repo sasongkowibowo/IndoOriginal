@@ -15,13 +15,14 @@ namespace IndoOriginal.Models
     public partial class BookingSchedule
     {
         public int Id { get; set; }
-        public string Date { get; set; }
+        public System.DateTime Date { get; set; }
         public int Time { get; set; }
+        public int EndTime { get; set; }
         public int BranchTableId { get; set; }
         public int BranchId { get; set; }
     
-        public virtual BookingRequest BookingRequest { get; set; }
         public virtual BranchTable BranchTable { get; set; }
         public virtual Branch Branch { get; set; }
+        public virtual BookingRequest BookingRequest { get; set; }
     }
 }

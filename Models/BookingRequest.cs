@@ -11,22 +11,50 @@ namespace IndoOriginal.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class BookingRequest
     {
-        public int Id { get; set; }
-        public System.DateTime Date { get; set; }
-        public int Time { get; set; }
-        public System.DateTime TransactionDate { get; set; }
-        public string Note { get; set; }
-        public int Persons { get; set; }
-        public string Email { get; set; }
-        public string FullName { get; set; }
-        public string Telephone { get; set; }
-        public int WaitingList { get; set; }
-        public int BranchId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public BookingRequest()
+        {
+            this.Reviews = new HashSet<Review>();
+        }
     
-        public virtual BookingSchedule BookingSchedule { get; set; }
+        public int Id { get; set; }
+
+        [Display(Name = "Branch")]
+        public int BranchId { get; set; }
+
+        [Required(ErrorMessage = "Please enter name")]
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
+
+        [Required(ErrorMessage = "Please enter date")]
+        public System.DateTime Date { get; set; }
+
+        [Required(ErrorMessage = "Please enter time")]
+        public int Time { get; set; }
+
+        [Required(ErrorMessage = "Please enter visitor quantity")]
+        public int Persons { get; set; }
+
+        [Required(ErrorMessage = "Please enter email address")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Please enter telephone number")]
+        public string Telephone { get; set; }
+
+        public string Note { get; set; }
+
+        public Nullable<int> WaitingList { get; set; }
+
+        public System.DateTime TransactionDate { get; set; }
+    
         public virtual Branch Branch { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
+        public virtual BookingSchedule BookingSchedule { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace IndoOriginal.Models
     {
         public int Id { get; set; }
         public string FullName { get; set; }
-        public int Telephone { get; set; }
+        public string Telephone { get; set; }
         public string UserType { get; set; }
         public int BranchId { get; set; }
         public string LoginId { get; set; }
