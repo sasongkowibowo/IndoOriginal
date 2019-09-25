@@ -15,9 +15,12 @@ namespace IndoOriginal.Controllers
         private IndoOriginal_ModelContainer db = new IndoOriginal_ModelContainer();
 
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(string message = null)
         {
-            ViewBag.Message = new string[] { "Booking request have been submited", "success" };
+            if (message != null)
+            {
+                ViewBag.Message = new string[] { "Booking request have been submited", "success" };
+            }
             //var bookingRequests = db.BookingRequests.Include(b => b.Branch);
             //return View(bookingRequests.ToList());
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
@@ -36,9 +39,8 @@ namespace IndoOriginal.Controllers
                 bookingRequest.TransactionDate = DateTime.Now;
                 db.BookingRequests.Add(bookingRequest);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { message = 1});
             }
-            ViewBag.Message = new string[] { "Booking request have been submited", "success" };
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", bookingRequest.BranchId);
             return View(bookingRequest);
         }

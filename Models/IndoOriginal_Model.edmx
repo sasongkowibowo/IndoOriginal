@@ -64,10 +64,8 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="UserType" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BranchId" Type="int" Nullable="false" />
     <Property Name="LoginId" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="BranchTables">
     <Key>
@@ -295,11 +293,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FullName" Type="String" Nullable="false" />
           <Property Name="Telephone" Type="String" Nullable="false" />
-          <Property Name="UserType" Type="String" Nullable="false" />
           <NavigationProperty Name="Branch" Relationship="IndoOriginal_Model.BranchEmployee" FromRole="Employee" ToRole="Branch" />
           <Property Name="BranchId" Type="Int32" Nullable="false" />
           <Property Name="LoginId" Type="String" Nullable="false" />
-          <Property Name="Password" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="BranchEmployee">
           <End Type="IndoOriginal_Model.Branch" Role="Branch" Multiplicity="1" />
@@ -484,10 +480,8 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
           <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-          <ScalarProperty Name="UserType" ColumnName="UserType" />
           <ScalarProperty Name="BranchId" ColumnName="BranchId" />
           <ScalarProperty Name="LoginId" ColumnName="LoginId" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

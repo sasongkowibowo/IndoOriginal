@@ -20,36 +20,35 @@ namespace IndoOriginal.Models
         {
             this.Reviews = new HashSet<Review>();
         }
-    
+
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Please choose a branch")]
         [Display(Name = "Branch")]
         public int BranchId { get; set; }
 
-        [Required(ErrorMessage = "Please enter name")]
+        [Required(ErrorMessage ="Please enter your full name")]
         [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Please enter date")]
+        [Required(ErrorMessage = "Please enter your booking date")]
         public System.DateTime Date { get; set; }
 
-        [Required(ErrorMessage = "Please enter time")]
+        [Required(ErrorMessage = "Please enter your booking time")]
         public int Time { get; set; }
 
-        [Required(ErrorMessage = "Please enter visitor quantity")]
+        [Required(ErrorMessage = "Please enter how many person will come")]
         public int Persons { get; set; }
 
-        [Required(ErrorMessage = "Please enter email address")]
+        [Required(ErrorMessage = "Please enter valid email address")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Please enter telephone number")]
+        [Required(ErrorMessage = "Please enter valid telephone number")]
         public string Telephone { get; set; }
-
         public string Note { get; set; }
-
         public Nullable<int> WaitingList { get; set; }
-
         public System.DateTime TransactionDate { get; set; }
     
         public virtual Branch Branch { get; set; }

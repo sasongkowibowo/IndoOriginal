@@ -11,17 +11,25 @@ namespace IndoOriginal.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Employee
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Please enter your full name")]
+        [Display(Name = "Full Name")]
         public string FullName { get; set; }
+
+        [Required(ErrorMessage = "Please enter valid telephone number")]
         public string Telephone { get; set; }
-        public string UserType { get; set; }
+
+        [Required(ErrorMessage = "Please choose a branch")]
+        [Display(Name = "Branch")]
         public int BranchId { get; set; }
+
         public string LoginId { get; set; }
-        public string Password { get; set; }
-    
+
         public virtual Branch Branch { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/15/2019 13:59:51
+-- Date Created: 09/23/2019 22:56:33
 -- Generated from EDMX file: E:\STUDY\3. Semester 2 2019\FIT5032_Internet_Applications_Development\source\repos\IndoOriginal\Models\IndoOriginal_Model.edmx
 -- --------------------------------------------------
 
@@ -88,10 +88,8 @@ CREATE TABLE [dbo].[Employees] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [FullName] nvarchar(max)  NOT NULL,
     [Telephone] nvarchar(max)  NOT NULL,
-    [UserType] nvarchar(max)  NOT NULL,
     [BranchId] int  NOT NULL,
-    [LoginId] nvarchar(max)  NOT NULL,
-    [Password] nvarchar(max)  NOT NULL
+    [LoginId] nvarchar(max)  NOT NULL
 );
 GO
 
