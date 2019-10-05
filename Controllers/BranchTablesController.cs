@@ -7,9 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IndoOriginal.Models;
+using Microsoft.AspNet.Identity;
 
 namespace IndoOriginal.Controllers
 {
+
+    [Authorize(Roles = "Manager,Staff")]
     public class BranchTablesController : Controller
     {
         private IndoOriginal_ModelContainer db = new IndoOriginal_ModelContainer();
@@ -17,7 +20,9 @@ namespace IndoOriginal.Controllers
         // GET: BranchTables
         public ActionResult Index()
         {
-            var branchTables = db.BranchTables.Include(b => b.Branch);
+            string userId = User.Identity.GetUserId();
+            int branchId = db.Employees.Where(i => i.LoginId.Equals(userId)).Select(i => i.BranchId).SingleOrDefault();
+            var branchTables = db.BranchTables.Where(b => b.BranchId == branchId);
             return View(branchTables.ToList());
         }
 
@@ -39,7 +44,6 @@ namespace IndoOriginal.Controllers
         // GET: BranchTables/Create
         public ActionResult Create()
         {
-            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
             return View();
         }
 
@@ -48,8 +52,15 @@ namespace IndoOriginal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TableNo,Capacity,BranchId")] BranchTable branchTable)
+        public ActionResult Create([Bind(Include = "Id,TableNo,Capacity")] BranchTable branchTable)
         {
+            string userId = User.Identity.GetUserId();
+            int branchId = db.Employees.Where(e => e.LoginId == userId).Select(e => e.BranchId).SingleOrDefault();
+
+            branchTable.BranchId = branchId;
+            ModelState.Clear();
+            TryValidateModel(branchTable);
+
             if (ModelState.IsValid)
             {
                 db.BranchTables.Add(branchTable);
@@ -82,15 +93,17 @@ namespace IndoOriginal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TableNo,Capacity,BranchId")] BranchTable branchTable)
+        public ActionResult Edit(int Id, string TableNo, int Capacity)
         {
+
+            BranchTable branchTable = db.BranchTables.Find(Id);
             if (ModelState.IsValid)
             {
-                db.Entry(branchTable).State = EntityState.Modified;
+                branchTable.TableNo = TableNo;
+                branchTable.Capacity = Capacity;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", branchTable.BranchId);
             return View(branchTable);
         }
 

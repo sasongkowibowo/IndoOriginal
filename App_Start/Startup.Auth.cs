@@ -58,11 +58,11 @@ namespace IndoOriginal
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "984730203152-cvakvhtljfdku6sju3rgiapml43tabug.apps.googleusercontent.com",
+                ClientSecret = "y54HnW15WbumsTgSariPUAu_"
+            });
         }
     }
 }

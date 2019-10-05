@@ -1,33 +1,33 @@
 ﻿@model IEnumerable<IndoOriginal.Models.Menu>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Menu List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
+<h2>@ViewBag.Title <a href="~/Staff/Index" style="font-size:18px !important"><span class="glyphicon glyphicon-chevron-left"></span> Back</a></h2>
+<hr />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New Menu", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
+        <th width="5%">
             @Html.DisplayNameFor(model => model.Type)
         </th>
-        <th>
+        <th width="15%">
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
+        <th width="30%">
             @Html.DisplayNameFor(model => model.Description)
         </th>
-        <th>
+        <th width="5%">
             @Html.DisplayNameFor(model => model.Calories)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Picture)
+        <th width="20%">
+            Image
         </th>
-        <th></th>
+        <th width="25%"></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -45,12 +45,20 @@
             @Html.DisplayFor(modelItem => item.Calories)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Picture)
+           @if (item.ImagePath != null)
+           {
+               <img src="@item.ImagePath" class="img-responsive img-thumbnail" width="150px" />
+           }
+           else
+           {
+               <p>no image</p>
+           }
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Upload Image", "UploadFile", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

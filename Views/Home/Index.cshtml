@@ -1,7 +1,6 @@
 ﻿@model IndoOriginal.Models.BookingRequest
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -39,6 +38,19 @@
             <p>
                 Indonesian cuisine is one of the richest culinary traditions in the world and is full of strong flavors. The richness of its cuisine is a reflection of the diversity of Nusantara's culture and traditions, which consists of around 6,000 inhabited islands and occupies an important role in Indonesia's national culture in general. Almost all Indonesian dishes are rich in spices derived from spices such as hazelnut, chilli, galangal, ginger, kencur, turmeric, coconut and palm sugar. We present a variety of authentic Indonesian menus from various ethnic groups in Indonesia, with the touch of our experienced chefs, guaranteed to spoil your taste.
             </p>
+                @foreach (var menus in ViewBag.Menus)
+                {
+                   <div class="col-lg-6">
+                       <h3>@menus.Name</h3>
+                       <p>
+                           @menus.Description<br />
+                           Calories: @menus.Calories<br />
+                           <img src="@menus.ImagePath"  width="400px" height="250px"/>
+                            <br /><br />
+                       </p>
+                   </div>
+                }
+            
         </div>
     </div>
 </div>
@@ -87,7 +99,7 @@
                         @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @*@Html.EditorFor(model => model.Time, new { htmlAttributes = new { @class = "form-control" } })*@
-                            <select class="form-control" name="Time" id="Time" tabindex = 1>
+                            <select class="form-control" name="Time" id="Time" tabindex=1>
                                 <option value="" placeholder>Select Time</option>
                                 <option value="900">09:00</option>
                                 <option value="930">09:30</option>
@@ -131,7 +143,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Please input your valid email address", tabindex = 1} })
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Please input your valid email address", tabindex = 1 } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -147,8 +159,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @*@Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })*@ 
-                            <textarea class= "form-control" name="Note" id="Note" rows="4" placeholder="Do you have anything to say to our staff?" tabindex = 1></textarea>
+                            @Html.TextAreaFor(model => model.Note, new { rows = 5, cols = 40, placeholder = "Do you have anything to say to our staff?", htmlAttributes = new { @class = "form-control"} })
                             @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
                         </div>
                     </div>

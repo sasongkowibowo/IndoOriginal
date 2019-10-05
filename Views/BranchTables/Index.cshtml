@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<IndoOriginal.Models.BranchTable>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Table List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title <a href="~/Staff/Index" style="font-size:18px !important"><span class="glyphicon glyphicon-chevron-left"></span> Back</a></h2>
+<hr />
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New Table", "Create")
 </p>
 <table class="table">
     <tr>
@@ -17,9 +18,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Capacity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Branch.Name)
         </th>
         <th></th>
     </tr>
@@ -31,9 +29,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Capacity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Branch.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

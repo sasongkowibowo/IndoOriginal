@@ -86,4 +86,17 @@ body {
     color: #210303;
 }
 
+<style >
 
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+    background-color: #210303;
+}
+
+.modal-footer
+{
+    text-align:left !important;
+}

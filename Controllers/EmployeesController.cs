@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IndoOriginal.Models;
+using Microsoft.AspNet.Identity;
 
 namespace IndoOriginal.Controllers
 {
@@ -15,13 +16,16 @@ namespace IndoOriginal.Controllers
         private IndoOriginal_ModelContainer db = new IndoOriginal_ModelContainer();
 
         // GET: Employees
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
+            
             var employees = db.Employees.Include(e => e.Branch);
             return View(employees.ToList());
         }
 
         // GET: Employees/Details/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -49,13 +53,19 @@ namespace IndoOriginal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FullName,Telephone,UserType,BranchId,LoginId,Password")] Employee employee)
+        [Authorize]
+        public ActionResult Create([Bind(Include = "Id,FullName,Telephone,UserType,BranchId,Password")] Employee employee)
         {
+            employee.LoginId = User.Identity.GetUserId();
+
+            ModelState.Clear();
+            TryValidateModel(employee);
+
             if (ModelState.IsValid)
             {
                 db.Employees.Add(employee);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Staff");
             }
 
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", employee.BranchId);
@@ -63,6 +73,7 @@ namespace IndoOriginal.Controllers
         }
 
         // GET: Employees/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,8 +94,10 @@ namespace IndoOriginal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit([Bind(Include = "Id,FullName,Telephone,UserType,BranchId,LoginId,Password")] Employee employee)
         {
+            
             if (ModelState.IsValid)
             {
                 db.Entry(employee).State = EntityState.Modified;
@@ -96,6 +109,7 @@ namespace IndoOriginal.Controllers
         }
 
         // GET: Employees/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,6 +127,7 @@ namespace IndoOriginal.Controllers
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = db.Employees.Find(id);

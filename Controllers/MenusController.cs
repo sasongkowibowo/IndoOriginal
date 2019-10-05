@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -10,6 +11,7 @@ using IndoOriginal.Models;
 
 namespace IndoOriginal.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class MenusController : Controller
     {
         private IndoOriginal_ModelContainer db = new IndoOriginal_ModelContainer();
@@ -46,7 +48,7 @@ namespace IndoOriginal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Type,Name,Description,Calories,Picture")] Menu menu)
+        public ActionResult Create([Bind(Include = "Type,Name,Description,Calories")] Menu menu)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +58,49 @@ namespace IndoOriginal.Controllers
             }
 
             return View(menu);
+        }
+
+        // GET: FileUpload
+        public ActionResult UploadFile(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Menu menu = db.Menus.Find(id);
+            if (menu == null)
+            {
+                return HttpNotFound();
+            }
+            return View(menu);
+        }
+
+        [HttpPost]
+        public ActionResult UploadFile(int id, HttpPostedFileBase ImagePath)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (ImagePath != null)
+                    {
+                        string uniq = Guid.NewGuid().ToString("N");
+                        string path = Path.Combine(Server.MapPath("~/UploadedFiles"), id + "_" + uniq + "_" + Path.GetFileName(ImagePath.FileName));
+                        ImagePath.SaveAs(path);
+                        Menu menu = db.Menus.Find(id);
+                        menu.ImagePath = "\\UploadedFiles\\" + id + "_" + uniq + "_" + Path.GetFileName(ImagePath.FileName);
+                        db.SaveChanges();
+                    }
+                    ViewBag.FileStatus = "File uploaded successfully.";
+                }
+                catch (Exception)
+                {
+
+                    ViewBag.FileStatus = "Error while file uploading.";
+                }
+
+            }
+            return View();
         }
 
         // GET: Menus/Edit/5
@@ -78,11 +123,15 @@ namespace IndoOriginal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Type,Name,Description,Calories,Picture")] Menu menu)
+        public ActionResult Edit(int Id, string Type, string Name, string Description, int Calories)
         {
+            Menu menu = db.Menus.Find(Id);
             if (ModelState.IsValid)
             {
-                db.Entry(menu).State = EntityState.Modified;
+                menu.Type = Type;
+                menu.Name = Name;
+                menu.Description = Description;
+                menu.Calories = Calories;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

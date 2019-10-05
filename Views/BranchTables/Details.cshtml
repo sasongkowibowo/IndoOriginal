@@ -5,11 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
+<hr />
 
 <div>
-    <h4>BranchTable</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.TableNo)
@@ -25,14 +24,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Capacity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Branch.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Branch.Name)
         </dd>
 
     </dl>

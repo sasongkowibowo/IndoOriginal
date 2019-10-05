@@ -29,7 +29,6 @@ namespace IndoOriginal.Models
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<BranchTable> BranchTables { get; set; }
         public virtual DbSet<BookingRequest> BookingRequests { get; set; }
-        public virtual DbSet<BookingSchedule> BookingSchedules { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
     }

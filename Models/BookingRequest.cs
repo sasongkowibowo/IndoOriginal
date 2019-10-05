@@ -20,23 +20,23 @@ namespace IndoOriginal.Models
         {
             this.Reviews = new HashSet<Review>();
         }
-
+    
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please choose a branch")]
         [Display(Name = "Branch")]
         public int BranchId { get; set; }
 
-        [Required(ErrorMessage ="Please enter your full name")]
+        [Required(ErrorMessage = "Please enter your full name")]
         [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
         [Required(ErrorMessage = "Please enter your booking date")]
+        [DisplayFormat(DataFormatString = "{0:ddddd, dd MMM yyyy}")]
         public System.DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Please enter your booking time")]
         public int Time { get; set; }
-
         [Required(ErrorMessage = "Please enter how many person will come")]
         public int Persons { get; set; }
 
@@ -49,11 +49,19 @@ namespace IndoOriginal.Models
         public string Telephone { get; set; }
         public string Note { get; set; }
         public Nullable<int> WaitingList { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:ddddd, dd MMM yyyy}")]
         public System.DateTime TransactionDate { get; set; }
+
+        public Nullable<int> BookingStatus { get; set; }
+        public string ReviewCode { get; set; }
+        public Nullable<int> RealTimeStart { get; set; }
+        public Nullable<int> RealTimeEnd { get; set; }
+        public Nullable<int> BranchTableId { get; set; }
     
         public virtual Branch Branch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
-        public virtual BookingSchedule BookingSchedule { get; set; }
+        public virtual BranchTable BranchTable { get; set; }
     }
 }

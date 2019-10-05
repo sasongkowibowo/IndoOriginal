@@ -10,6 +10,7 @@ using IndoOriginal.Models;
 
 namespace IndoOriginal.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private IndoOriginal_ModelContainer db = new IndoOriginal_ModelContainer();
@@ -17,14 +18,22 @@ namespace IndoOriginal.Controllers
         // GET: Home
         public ActionResult Index(string message = null)
         {
-            if (message != null)
+            if (Request.IsAuthenticated)
             {
-                ViewBag.Message = new string[] { "Booking request have been submited", "success" };
+                return RedirectToAction("Index", "Staff");
             }
-            //var bookingRequests = db.BookingRequests.Include(b => b.Branch);
-            //return View(bookingRequests.ToList());
-            ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
-            return View();
+            else
+            {
+                if (message != null)
+                {
+                    ViewBag.Message = new string[] { "Booking request has been submited", "success" };
+                }
+                ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
+                var menus = db.Menus.ToList();
+                ViewBag.Menus = menus;
+               
+                return View();
+            }
         }
 
         // POST: Home/Index

@@ -27,9 +27,8 @@ namespace IndoOriginal.Models
         [Required(ErrorMessage = "Please choose a branch")]
         [Display(Name = "Branch")]
         public int BranchId { get; set; }
-
         public string LoginId { get; set; }
-
+    
         public virtual Branch Branch { get; set; }
     }
 }

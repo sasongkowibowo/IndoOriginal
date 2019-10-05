@@ -11,15 +11,12 @@
         <EntityTypeShape EntityType="IndoOriginal_Model.BranchTable" Width="1.5" PointX="4.125" PointY="0.75" />
         <AssociationConnector Association="IndoOriginal_Model.BranchBranchTable" />
         <EntityTypeShape EntityType="IndoOriginal_Model.BookingRequest" Width="1.5" PointX="1.375" PointY="0.875" />
-        <EntityTypeShape EntityType="IndoOriginal_Model.BookingSchedule" Width="1.5" PointX="4.75" PointY="4.375" />
-        <AssociationConnector Association="IndoOriginal_Model.BranchTableBookingSchedule" />
         <AssociationConnector Association="IndoOriginal_Model.BranchBookingRequest" />
-        <AssociationConnector Association="IndoOriginal_Model.BranchBookingSchedule" />
         <EntityTypeShape EntityType="IndoOriginal_Model.Menu" Width="1.5" PointX="8.625" PointY="4.625" />
-        <EntityTypeShape EntityType="IndoOriginal_Model.Review" Width="1.5" PointX="1.75" PointY="5.125" />
+        <EntityTypeShape EntityType="IndoOriginal_Model.Review" Width="1.5" PointX="4.125" PointY="5" />
         <AssociationConnector Association="IndoOriginal_Model.BranchReview" />
         <AssociationConnector Association="IndoOriginal_Model.BookingRequestReview" />
-        <AssociationConnector Association="IndoOriginal_Model.BookingRequestBookingSchedule" />
+        <AssociationConnector Association="IndoOriginal_Model.BranchTableBookingRequest" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

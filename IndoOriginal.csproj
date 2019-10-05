@@ -170,9 +170,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\BranchTablesController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageBookingController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
@@ -183,15 +185,13 @@
     <Compile Include="Models\BookingRequest.cs">
       <DependentUpon>IndoOriginal_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BookingSchedule.cs">
-      <DependentUpon>IndoOriginal_Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Branch.cs">
       <DependentUpon>IndoOriginal_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BranchTable.cs">
       <DependentUpon>IndoOriginal_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ScheduledBooking.cs" />
     <Compile Include="Models\Employee.cs">
       <DependentUpon>IndoOriginal_Model.tt</DependentUpon>
     </Compile>
@@ -394,8 +394,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -417,10 +415,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\Create.cshtml" />
-    <Content Include="Views\Home\Delete.cshtml" />
-    <Content Include="Views\Home\Details.cshtml" />
-    <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Menus\Create.cshtml" />
     <Content Include="Views\Menus\Delete.cshtml" />
     <Content Include="Views\Menus\Details.cshtml" />
@@ -440,8 +434,21 @@
     <Content Include="Views\Employees\Details.cshtml" />
     <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Menus\UploadFile.cshtml" />
+    <Content Include="Views\Branches\Create.cshtml" />
+    <Content Include="Views\Branches\Delete.cshtml" />
+    <Content Include="Views\Branches\Details.cshtml" />
+    <Content Include="Views\Branches\Edit.cshtml" />
+    <Content Include="Views\Branches\Index.cshtml" />
+    <Content Include="Views\ManageBooking\Details.cshtml" />
+    <Content Include="Views\ManageBooking\Index.cshtml" />
+    <Content Include="Views\ManageBooking\ScheduledBookings.cshtml" />
+    <Content Include="Views\ManageBooking\CancelledBookings.cshtml" />
+    <Content Include="Views\ManageBooking\FinishedBookings.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UploadedFiles\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
