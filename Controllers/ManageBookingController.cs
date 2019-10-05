@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IndoOriginal.Models;
+using IndoOriginal.Utils;
 using Microsoft.AspNet.Identity;
 
 namespace IndoOriginal.Controllers
@@ -72,6 +73,19 @@ namespace IndoOriginal.Controllers
                 bookingRequest.BookingStatus = 1;
                 bookingRequest.BranchTableId = table;
                 db.SaveChanges();
+
+                var branch = db.Branches.Find(bookingRequest.BranchId);
+
+                string subject = "Your booking request has been scheduled";
+                string contents = "Booking confirmation: <br /> " +
+                    "Branch: " + branch.Name + " (" + branch.Address + " " + branch.State + ", tel: " + branch.Telephone + ")<br />" +
+                    "Schedule: " + bookingRequest.Date.ToString("dd/MM/yyyy") + ", " + bookingRequest.RealTimeStart +
+                    " - " + bookingRequest.RealTimeEnd + "<br/>" +
+                    "We are looking forward to your arrival";
+                               
+                EmailSender es = new EmailSender();
+                es.Send(bookingRequest.Email, subject, contents);
+
                 return RedirectToAction("Index");
             }
             return View(bookingRequest);
@@ -125,8 +139,36 @@ namespace IndoOriginal.Controllers
             BookingRequest bookingRequest = db.BookingRequests.Find(Id);
             if (ModelState.IsValid)
             {
+                string uniq = Guid.NewGuid().ToString("N");
+
                 bookingRequest.BookingStatus = flag;
+                bookingRequest.ReviewCode = uniq;
                 db.SaveChanges();
+
+                string subject = "";
+                string contents = "";
+                var branch = db.Branches.Find(bookingRequest.BranchId);
+
+                if (flag== 4)
+                {
+                    subject = "Thankyou for your coming";
+                    contents = "Branch: " + branch.Name + " (" + branch.Address + " " + branch.State + ", tel: " + branch.Telephone + ")<br />" +
+                        "Schedule: " + bookingRequest.Date.ToString("dd/MM/yyyy") + ", " + bookingRequest.Time + "<br/>" +
+                        "Thank you for your coming. We hope you are satisfied with our service. " +
+                        "We await your next arrival. <br />" +
+                        "To improve our service, please fill out the following survey: https://localhost:44353/Reviews/" + bookingRequest.ReviewCode;
+                }
+                else if (flag == 3)
+                {
+                    subject = "Your booking request has been cancelled";
+                    contents = "Branch: " + branch.Name + " (" + branch.Address + " " + branch.State + ", tel: " + branch.Telephone + ")<br />" +
+                        "Schedule: " + bookingRequest.Date.ToString("dd/MM/yyyy") + ", " + bookingRequest.Time + "<br/>" +
+                        "Please come next time and enjoy special experience with us.";
+                }
+
+                EmailSender es = new EmailSender();
+                es.Send(bookingRequest.Email, subject, contents);
+
                 return RedirectToAction("ScheduledBookings");
             }
             return View(bookingRequest);

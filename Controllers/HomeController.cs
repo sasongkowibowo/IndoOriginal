@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IndoOriginal.Models;
+using IndoOriginal.Utils;
 
 namespace IndoOriginal.Controllers
 {
@@ -26,7 +27,7 @@ namespace IndoOriginal.Controllers
             {
                 if (message != null)
                 {
-                    ViewBag.Message = new string[] { "Booking request has been submited", "success" };
+                    ViewBag.Message = new string[] { "Booking request has been submited, You will receive a confirmation email soon", "success" };
                 }
                 ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
                 var menus = db.Menus.ToList();
@@ -48,6 +49,18 @@ namespace IndoOriginal.Controllers
                 bookingRequest.TransactionDate = DateTime.Now;
                 db.BookingRequests.Add(bookingRequest);
                 db.SaveChanges();
+
+                var branch = db.Branches.Find(bookingRequest.BranchId);
+
+                string subject = "Your booking request will be arranged";
+                string contents = "Booking confirmation: <br /> " +
+                    "Branch: " + branch.Name + " (" + branch.Address + " " + branch.State + ", tel: " + branch.Telephone + ")<br />" +
+                    "Schedule: " + bookingRequest.Date.ToString("dd/MM/yyyy") + ", " + bookingRequest.Time + "<br/>" +
+                    "We are arranging your request. We will send you a confirmation email soon as possible.";
+
+                EmailSender es = new EmailSender();
+                es.Send(bookingRequest.Email, subject, contents);
+
                 return RedirectToAction("Index", new { message = 1});
             }
             ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name", bookingRequest.BranchId);
