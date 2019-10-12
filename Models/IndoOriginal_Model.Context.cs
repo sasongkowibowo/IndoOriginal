@@ -31,5 +31,6 @@ namespace IndoOriginal.Models
         public virtual DbSet<BookingRequest> BookingRequests { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<Campaign> Campaigns { get; set; }
     }
 }

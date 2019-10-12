@@ -11,8 +11,7 @@ namespace IndoOriginal.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class BranchTable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,20 +19,12 @@ namespace IndoOriginal.Models
         {
             this.BookingRequests = new HashSet<BookingRequest>();
         }
-
+    
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Please enter table number")]
-        [Display(Name = "Table Number")]
         public string TableNo { get; set; }
-
-        [Required(ErrorMessage = "Please enter table capacity")]
         public int Capacity { get; set; }
-
-        [Required(ErrorMessage = "Please enter branch")]
-        [Display(Name = "Branch Name")]
         public int BranchId { get; set; }
-
+    
         public virtual Branch Branch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookingRequest> BookingRequests { get; set; }

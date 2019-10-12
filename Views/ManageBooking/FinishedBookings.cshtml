@@ -13,16 +13,15 @@
         <th width="25%">
             @Html.DisplayNameFor(model => model.FullName)
         </th>
-        <th width="20%">
+        <th width="25%">
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th width="20%">
+        <th width="25%">
             @Html.DisplayNameFor(model => model.Time)
         </th>
-        <th width="10%">
+        <th width="25%">
             @Html.DisplayNameFor(model => model.Persons)
         </th>
-        <th width="25%"></th>
     </tr>
 
     @foreach (var item in Model)
@@ -39,9 +38,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Persons)
-            </td>
-            <td>
-                @Html.ActionLink("Review", "Review/Index", new { id = item.Id })
             </td>
         </tr>
     }

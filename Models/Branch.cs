@@ -11,8 +11,7 @@ namespace IndoOriginal.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Branch
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,25 +22,15 @@ namespace IndoOriginal.Models
             this.BookingRequests = new HashSet<BookingRequest>();
             this.Reviews = new HashSet<Review>();
         }
-
+    
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Please enter branch name")]
         public string Name { get; set; }
-
-        [Required(ErrorMessage = "Please enter address")]
         public string Address { get; set; }
-
-        [Required(ErrorMessage = "Please enter state")]
         public string State { get; set; }
-
-        [Required(ErrorMessage = "Please enter telephone number")]
         public string Telephone { get; set; }
-
-        [Required(ErrorMessage = "Please enter coordinate")]
-        public string Coordinate { get; set; }
-
-
+        public string Lat { get; set; }
+        public string Lng { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

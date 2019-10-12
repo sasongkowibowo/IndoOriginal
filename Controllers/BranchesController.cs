@@ -47,7 +47,7 @@ namespace IndoOriginal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Address,State,Telephone,Coordinate")] Branch branch)
+        public ActionResult Create([Bind(Include = "Id,Name,Address,State,Telephone,Lat,Lng")] Branch branch)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace IndoOriginal.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Address,State,Telephone,Coordinate")] Branch branch)
+        public ActionResult Edit([Bind(Include = "Id,Name,Address,State,Telephone,Lat,Lng")] Branch branch)
         {
             if (ModelState.IsValid)
             {

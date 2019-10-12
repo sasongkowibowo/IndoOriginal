@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/04/2019 15:00:52
+-- Date Created: 10/09/2019 13:25:10
 -- Generated from EDMX file: E:\STUDY\3. Semester 2 2019\FIT5032_Internet_Applications_Development\source\repos\IndoOriginal\Models\IndoOriginal_Model.edmx
 -- --------------------------------------------------
 
@@ -58,6 +58,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Reviews]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Reviews];
 GO
+IF OBJECT_ID(N'[dbo].[Campaigns]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Campaigns];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -70,7 +73,8 @@ CREATE TABLE [dbo].[Branches] (
     [Address] nvarchar(max)  NOT NULL,
     [State] nvarchar(max)  NOT NULL,
     [Telephone] nvarchar(max)  NOT NULL,
-    [Coordinate] nvarchar(max)  NOT NULL
+    [Lat] nvarchar(max)  NOT NULL,
+    [Lng] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -139,6 +143,17 @@ CREATE TABLE [dbo].[Reviews] (
 );
 GO
 
+-- Creating table 'Campaigns'
+CREATE TABLE [dbo].[Campaigns] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SendTo] nvarchar(max)  NOT NULL,
+    [Subject] nvarchar(max)  NOT NULL,
+    [Content] nvarchar(max)  NOT NULL,
+    [SendDate] datetime  NOT NULL,
+    [AttachmentPath] nvarchar(max)  NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -176,6 +191,12 @@ GO
 -- Creating primary key on [Id] in table 'Reviews'
 ALTER TABLE [dbo].[Reviews]
 ADD CONSTRAINT [PK_Reviews]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Campaigns'
+ALTER TABLE [dbo].[Campaigns]
+ADD CONSTRAINT [PK_Campaigns]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

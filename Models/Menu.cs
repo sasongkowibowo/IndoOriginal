@@ -16,6 +16,7 @@ namespace IndoOriginal.Models
     public partial class Menu
     {
         public int Id { get; set; }
+
         [Required(ErrorMessage = "Please enter menu type")]
         public string Type { get; set; }
 

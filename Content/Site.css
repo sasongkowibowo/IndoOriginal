@@ -86,8 +86,6 @@ body {
     color: #210303;
 }
 
-<style >
-
 .footer {
     position: fixed;
     bottom: 0;
@@ -100,3 +98,9 @@ body {
 {
     text-align:left !important;
 }
+
+#map {
+    height: 400px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+}
+

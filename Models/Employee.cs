@@ -28,7 +28,6 @@ namespace IndoOriginal.Models
         [Display(Name = "Branch")]
         public int BranchId { get; set; }
         public string LoginId { get; set; }
-    
         public virtual Branch Branch { get; set; }
     }
 }

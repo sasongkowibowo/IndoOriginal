@@ -12,6 +12,7 @@
     <EntitySet Name="BookingRequests" EntityType="IndoOriginal_Model.Store.BookingRequests" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Menus" EntityType="IndoOriginal_Model.Store.Menus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Reviews" EntityType="IndoOriginal_Model.Store.Reviews" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Campaigns" EntityType="IndoOriginal_Model.Store.Campaigns" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="BranchEmployee" Association="IndoOriginal_Model.Store.BranchEmployee">
       <End Role="Branch" EntitySet="Branches" />
       <End Role="Employee" EntitySet="Employees" />
@@ -46,7 +47,8 @@
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
     <Property Name="State" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Coordinate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lat" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lng" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Employees">
     <Key>
@@ -112,6 +114,17 @@
     <Property Name="ReviewDate" Type="datetime" Nullable="false" />
     <Property Name="BranchId" Type="int" Nullable="false" />
     <Property Name="BookingRequestId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Campaigns">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SendTo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SendDate" Type="datetime" Nullable="false" />
+    <Property Name="AttachmentPath" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <Association Name="BranchEmployee">
     <End Role="Branch" Type="IndoOriginal_Model.Store.Branches" Multiplicity="1" />
@@ -220,6 +233,7 @@
             <End Role="BranchTable" EntitySet="BranchTables" />
             <End Role="BookingRequest" EntitySet="BookingRequests" />
           </AssociationSet>
+          <EntitySet Name="Campaigns" EntityType="IndoOriginal_Model.Campaign" />
         </EntityContainer>
         <EntityType Name="Branch">
           <Key>
@@ -230,11 +244,12 @@
           <Property Name="Address" Type="String" Nullable="false" />
           <Property Name="State" Type="String" Nullable="false" />
           <Property Name="Telephone" Type="String" Nullable="false" />
-          <Property Name="Coordinate" Type="String" Nullable="false" />
+          <Property Name="Lat" Type="String" Nullable="false" />
           <NavigationProperty Name="Employees" Relationship="IndoOriginal_Model.BranchEmployee" FromRole="Branch" ToRole="Employee" />
           <NavigationProperty Name="BranchTables" Relationship="IndoOriginal_Model.BranchBranchTable" FromRole="Branch" ToRole="BranchTable" />
           <NavigationProperty Name="BookingRequests" Relationship="IndoOriginal_Model.BranchBookingRequest" FromRole="Branch" ToRole="BookingRequest" />
           <NavigationProperty Name="Reviews" Relationship="IndoOriginal_Model.BranchReview" FromRole="Branch" ToRole="Review" />
+          <Property Name="Lng" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -381,6 +396,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Campaign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SendTo" Type="String" Nullable="false" />
+          <Property Name="Subject" Type="String" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" />
+          <Property Name="SendDate" Type="DateTime" Nullable="false" />
+          <Property Name="AttachmentPath" Type="String" Nullable="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -395,7 +421,8 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-          <ScalarProperty Name="Coordinate" ColumnName="Coordinate" />
+          <ScalarProperty Name="Lat" ColumnName="Lat" />
+          <ScalarProperty Name="Lng" ColumnName="Lng" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -466,6 +493,18 @@
           <ScalarProperty Name="ReviewDate" ColumnName="ReviewDate" />
           <ScalarProperty Name="BranchId" ColumnName="BranchId" />
           <ScalarProperty Name="BookingRequestId" ColumnName="BookingRequestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Campaigns">
+      <EntityTypeMapping TypeName="IsTypeOf(IndoOriginal_Model.Campaign)">
+        <MappingFragment StoreEntitySet="Campaigns">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SendTo" ColumnName="SendTo" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+          <ScalarProperty Name="AttachmentPath" ColumnName="AttachmentPath" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

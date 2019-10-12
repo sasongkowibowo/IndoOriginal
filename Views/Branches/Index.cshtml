@@ -26,7 +26,7 @@
             @Html.DisplayNameFor(model => model.Telephone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Coordinate)
+            Coordinate
         </th>
         <th></th>
     </tr>
@@ -47,7 +47,7 @@
                 @Html.DisplayFor(modelItem => item.Telephone)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Coordinate)
+                @Html.DisplayFor(modelItem => item.Lat), @Html.DisplayFor(modelItem => item.Lng)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

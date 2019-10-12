@@ -11,19 +11,34 @@ namespace IndoOriginal.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Review
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Please give menu rating")]
         public int Menu { get; set; }
+
+        [Required(ErrorMessage = "Please give place rating")]
         public int Place { get; set; }
+
+        [Required(ErrorMessage = "Please give service rating")]
         public int Service { get; set; }
+
+        [Required(ErrorMessage = "Please give booking process rating")]
+        [Display(Name = "Booking Process")]
         public int BookingProcess { get; set; }
+
+        [Required(ErrorMessage = "Please give comment")]
         public string Comment { get; set; }
+
+        [Display(Name = "Review Date")]
+        [DisplayFormat(DataFormatString = "{0:ddddd, dd MMM yyyy}")]
         public System.DateTime ReviewDate { get; set; }
         public int BranchId { get; set; }
         public int BookingRequestId { get; set; }
-    
+
         public virtual Branch Branch { get; set; }
         public virtual BookingRequest BookingRequest { get; set; }
     }

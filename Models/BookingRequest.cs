@@ -11,8 +11,7 @@ namespace IndoOriginal.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class BookingRequest
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,37 +21,16 @@ namespace IndoOriginal.Models
         }
     
         public int Id { get; set; }
-
-        [Required(ErrorMessage = "Please choose a branch")]
-        [Display(Name = "Branch")]
         public int BranchId { get; set; }
-
-        [Required(ErrorMessage = "Please enter your full name")]
-        [Display(Name = "Full Name")]
         public string FullName { get; set; }
-
-        [Required(ErrorMessage = "Please enter your booking date")]
-        [DisplayFormat(DataFormatString = "{0:ddddd, dd MMM yyyy}")]
         public System.DateTime Date { get; set; }
-
-        [Required(ErrorMessage = "Please enter your booking time")]
         public int Time { get; set; }
-        [Required(ErrorMessage = "Please enter how many person will come")]
         public int Persons { get; set; }
-
-        [Required(ErrorMessage = "Please enter valid email address")]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        [Display(Name = "Email Address")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Please enter valid telephone number")]
         public string Telephone { get; set; }
         public string Note { get; set; }
         public Nullable<int> WaitingList { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:ddddd, dd MMM yyyy}")]
         public System.DateTime TransactionDate { get; set; }
-
         public Nullable<int> BookingStatus { get; set; }
         public string ReviewCode { get; set; }
         public Nullable<int> RealTimeStart { get; set; }

@@ -18,6 +18,13 @@ namespace IndoOriginal
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                "Reviews",
+                "Create/{reviewCode}",
+                new { controller = "Reviews", action = "Create" },
+                new { reviewCode = @"\w+" }
+            );
         }
     }
 }

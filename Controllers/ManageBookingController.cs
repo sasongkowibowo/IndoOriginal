@@ -156,7 +156,7 @@ namespace IndoOriginal.Controllers
                         "Schedule: " + bookingRequest.Date.ToString("dd/MM/yyyy") + ", " + bookingRequest.Time + "<br/>" +
                         "Thank you for your coming. We hope you are satisfied with our service. " +
                         "We await your next arrival. <br />" +
-                        "To improve our service, please fill out the following survey: https://localhost:44353/Reviews/" + bookingRequest.ReviewCode;
+                        "To improve our service, please fill out the following survey: https://localhost:44353/Reviews/Create?reviewCode=" + bookingRequest.ReviewCode;
                 }
                 else if (flag == 3)
                 {

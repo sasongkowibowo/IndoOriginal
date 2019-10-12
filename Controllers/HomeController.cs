@@ -25,11 +25,20 @@ namespace IndoOriginal.Controllers
             }
             else
             {
-                if (message != null)
+                if (message == "1")
                 {
                     ViewBag.Message = new string[] { "Booking request has been submited, You will receive a confirmation email soon", "success" };
                 }
-                ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
+                else if (message == "2")
+                {
+                    ViewBag.Message = new string[] { "Thankyou for your review and comment. We hope can meet you again soon.", "success" };
+                }
+
+               // ViewBag.BranchId = new SelectList(db.Branches, "Id", "Name");
+
+                var branches = db.Branches.ToList();
+                ViewBag.Branches = branches;
+
                 var menus = db.Menus.ToList();
                 ViewBag.Menus = menus;
                
